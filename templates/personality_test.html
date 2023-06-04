@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Personality Test</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            width: 70%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-right: 20px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 150px;
+        }
+        input[type="radio"] {
+            transform: scale(1.75);
+            margin-right: 5px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 1px solid #427744;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            outline: none;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        input[type="radio"]:checked {
+            border-color: #427744;
+            background-color: #4caf50;
+        }
+        table {
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1>Personality Test</h1>
+
+    <form method="POST" action="/">
+        <h2>{{ question }}</h2>
+        <table>
+            <tr>
+                <td></td>
+                {% for response in responses %}
+                <td>{{ response }}</td>
+                {% endfor %}
+                <td></td>
+            </tr>
+            <tr>
+                <td>Inaccurate</td>
+                {% for response in responses %}
+                <td><input type="radio" name="response" id="{{ response }}" value="{{ response }}"></td>
+                {% endfor %}
+                <td>Accurate</td>
+            </tr>
+        </table>
+        <input type="hidden" name="question_index" value="{{ question_index }}">
+        <input type="submit" value="Next">
+    </form>
+</body>
+</html>

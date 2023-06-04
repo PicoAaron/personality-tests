@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Personality Test</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        li {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Personality Test</h1>
+    <form method="POST" action="/">
+        <h2>{{ question }}</h2>
+        <ul>
+            {% for response in responses %}
+            <li><input type="radio" name="response" value="{{ response }}">{{ response }}</li>
+            {% endfor %}
+        </ul>
+        <input type="hidden" name="question_index" value="{{ question_index }}">
+        <input type="submit" value="Next">
+    </form>
+</body>
+</html>
