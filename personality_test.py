@@ -1,22 +1,27 @@
 from flask import Flask, render_template, request
+import webbrowser
+import os
 
 #Import the questionnaries
 import questionnaries.NEOPIR as NEOPIR
 import questionnaries.MiniIPIP as MiniIPIP
 
+
 app = Flask(__name__)
+
 
 # Sample questions and responses
 questions = MiniIPIP.questions
 
-'''responses = [
-    "1. Very inaccurate",
-    "2. Moderately inaccurate",
-    "3. Neither Accurate Nor Inaccurate",
-    "4. Moderately accurate",
-    "5. Very accurate"
-] 
-'''
+
+trait_scores = {
+    "Openness": {"score": 0, "max_score": 0, "min_score": 0},
+    "Conscientiousness": {"score": 0, "max_score": 0, "min_score": 0},
+    "Extraversion": {"score": 0, "max_score": 0, "min_score": 0},
+    "Agreeableness": {"score": 0, "max_score": 0, "min_score": 0},
+    "Neuroticism": {"score": 0, "max_score": 0, "min_score": 0}
+}
+
 
 responses = [
     "1",
@@ -27,23 +32,59 @@ responses = [
 ] 
 
 
+def process_answer(question):
+    selected_response = request.form.get('response')
+    trait, question, value = questions[question]
+    trait_scores[trait]["score"] += int(selected_response) * value
+    trait_scores[trait]["max_score"] += max(5 * value, 1 * value)
+    trait_scores[trait]["min_score"] += min(5 * value, 1 * value)
+
+
+def save_results():
+    name = "Results on a scale of -1 to 1"
+    path = "results/"
+    if not os.path.exists(path):
+        os.makedirs(path)
+    f = open("results/results.txt", "a")
+    f.write(f'{name}\n')
+    f.write("")
+    f.write('-----------------------------\n')
+    for trait, score in trait_scores.items():
+        min_value = score["min_score"]
+        max_value = score["max_score"]
+        normalized_value = 2 * (score["score"] - min_value) / (max_value - min_value) - 1
+        f.write(f'{trait}: {round(normalized_value, 2)}\n')
+    f.write('\n\n')
+
+
 @app.route('/', methods=['GET', 'POST'])
 def personality_test():
-    if request.method == 'POST':
-        # Process user's response
-        # You can store the response in a database or perform any other required actions
+
+    if request.method == 'GET':
+        # Show the first question
+        question_index = 0
+        return render_template('personality_test.html', question=questions[question_index][1], question_index=question_index, responses=responses)
         
-        # Move to the next question or show the result
+    else:
         question_index = int(request.form.get('question_index', 0))
+
+        # Process user's response
+        process_answer(question_index)
+
+        # Move to the next question or show the result
         if question_index < len(questions) - 1:
             question_index += 1
             return render_template('personality_test.html', question=questions[question_index][1], question_index=question_index, responses=responses)
         else:
+            #Save results
+            save_results() 
             return 'Test completed!'
-    else:
-        # Show the first question
-        question_index = 0
-        return render_template('personality_test.html', question=questions[question_index][1], question_index=question_index, responses=responses)
+            
 
 if __name__ == '__main__':
-    app.run(debug=True)
+
+    # Open the link in the default web browser
+    webbrowser.open("http://127.0.0.1:5000")
+
+    app.run()
+    
