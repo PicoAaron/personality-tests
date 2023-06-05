@@ -1,3 +1,4 @@
 #! /bin/bash
+python -m venv environment
 source environment/Scripts/activate
-python3 personality_test.py
+python personality_test.py
