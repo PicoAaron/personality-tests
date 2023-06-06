@@ -1,5 +1,7 @@
 
-Aaron
+Person 1
+*****************************
+
 Results on a scale of -1 to 1
 -----------------------------
 Openness: 0.25
@@ -17,7 +19,8 @@ Agreeableness: 0.62
 Neuroticism: 0.5
 
 
-Otro
+
+Person 2
 *****************************
 
 Results on a scale of -1 to 1
