@@ -14,6 +14,9 @@ app = Flask(__name__)
 questions = MiniIPIP.questions
 
 
+questionnaires = ["Mini-IPIP", "NEO-PI-R"]
+
+
 trait_scores = {
     "Openness": {"score": 0, "max_score": 0, "min_score": 0},
     "Conscientiousness": {"score": 0, "max_score": 0, "min_score": 0},
@@ -57,13 +60,37 @@ def save_results():
     f.write('\n\n')
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/questions', methods=['GET', 'POST'])
 def personality_test():
 
     if request.method == 'GET':
         # Show the first question
         question_index = 0
         return render_template('personality_test.html', question=questions[question_index][1], question_index=question_index, responses=responses)
+        
+    else:
+        question_index = int(request.form.get('question_index', 0))
+
+        # Process user's response
+        process_answer(question_index)
+
+        # Move to the next question or show the result
+        if question_index < len(questions) - 1:
+            question_index += 1
+            return render_template('personality_test.html', question=questions[question_index][1], question_index=question_index, responses=responses)
+        else:
+            #Save results
+            save_results() 
+            return 'Test completed!'
+        
+
+@app.route('/', methods=['GET', 'POST'])
+def options():
+
+    if request.method == 'GET':
+        # Show the first question
+        question_index = 0
+        return render_template('options.html', questionnaires=questionnaires)
         
     else:
         question_index = int(request.form.get('question_index', 0))

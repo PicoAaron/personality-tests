@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test options</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            width: 70%;
+        }
+        h1 {
+            text-align: center;
+            margin: 50px;
+        }
+        h2 {
+            text-align: center;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 150px;
+            margin: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #4caf50;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }  
+        select {
+            display: block;
+            padding: 10px;
+            padding-left: 50px;
+            padding-right: 50px;
+            margin-bottom: 30px;
+            font-size: 16px;
+            border: 2px solid #4caf50;
+            border-radius: 4px;
+            background-color: #ffffff;
+            appearance: none;
+        }
+        select:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+        select::after {
+            content: '\25BC';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #555;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Personality Test</h1>
+
+    <form method="POST" action="/">
+       
+        
+        <h2>Which questionnaire do you want to perform?</h2>
+        <select name="questionnaire">
+            {% for questionnaire in questionnaires %}
+              <option value="{{ questionnaire }}">{{ questionnaire }}</option>
+            {% endfor %}
+        </select>
+
+        <h2>Do you want the questions shuffled?</h2>
+        <select name="shuffle">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <h2>Name under which to save the results</h2>
+        <input type="text" name="name">
+
+        <input type="submit" value="Next">
+    </form>
+</body>
+</html>
