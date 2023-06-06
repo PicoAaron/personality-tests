@@ -22,3 +22,5 @@ You get two lists with the values obtained for each of the Big Five traits:
   - The values on a scale from 0 to 1
 
 See an example in results/results.txt
+
+![results](images/results.png)
