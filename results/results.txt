@@ -1,3 +1,40 @@
 
+Aaron
+Results on a scale of -1 to 1
+-----------------------------
+Openness: 0.25
+Conscientiousness: 0.62
+Extraversion: -0.25
+Agreeableness: 0.25
+Neuroticism: 0.0
+
+Results on a scale of 0 to 1
+-----------------------------
+Openness: 0.62
+Conscientiousness: 0.81
+Extraversion: 0.38
+Agreeableness: 0.62
+Neuroticism: 0.5
+
+
+Otro
+*****************************
+
+Results on a scale of -1 to 1
+-----------------------------
+Openness: -0.62
+Conscientiousness: -0.12
+Extraversion: 0.5
+Agreeableness: 0.12
+Neuroticism: -0.5
+
+Results on a scale of 0 to 1
+-----------------------------
+Openness: 0.19
+Conscientiousness: 0.44
+Extraversion: 0.75
+Agreeableness: 0.56
+Neuroticism: 0.25
+
 
 

@@ -1,4 +1,4 @@
-python -m venv environment
-.\environment\Scripts\pip.exe install -r requirements.txt
-.\environment\Scripts\python.exe personality_test.py
+python -m venv env
+.\env\Scripts\pip.exe install -r requirements.txt
+.\env\Scripts\python.exe personality_test.py
 pause
